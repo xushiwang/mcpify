@@ -1,0 +1,97 @@
+openapi: "3.0.3"
+info:
+  title: httpbin.org Demo
+  description: 示例 OpenAPI spec，对应 httpbin.org 公开测试 API。无需 API Key，直接跑。
+  version: "1.0.0"
+servers:
+  - url: https://httpbin.org
+    description: 公开测试服务器
+paths:
+  /get:
+    get:
+      operationId: httpbin_get
+      summary: 发送 GET 请求，回显所有参数
+      description: 测试 GET 请求。查询参数、header 都会被原样返回。
+      parameters:
+        - name: msg
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 任意消息，httpbin 会回显
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: 任意数字
+      responses:
+        "200":
+          description: 回显的请求信息
+
+  /post:
+    post:
+      operationId: httpbin_post
+      summary: 发送 POST 请求，回显 body
+      description: 测试 POST 请求。请求体会被原样返回。
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 任意 JSON 对象
+      responses:
+        "200":
+          description: 回显的请求信息
+
+  /status/{code}:
+    get:
+      operationId: httpbin_status
+      summary: 返回指定 HTTP 状态码
+      description: 测试各种 HTTP 状态码。例如 200、404、500 等。
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: HTTP 状态码（200, 404, 500 等）
+      responses:
+        "200":
+          description: 请求的状态码（当 code=200 时）
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+
+  /uuid:
+    get:
+      operationId: httpbin_uuid
+      summary: 生成一个 UUID
+      description: 返回一个随机的 UUID v4。
+      responses:
+        "200":
+          description: JSON，包含 uuid 字段
+
+  /anything/{id}:
+    get:
+      operationId: httpbin_anything
+      summary: 回显任意路径和参数
+      description: 测试路径参数。httpbin 会回显请求的 method、path、query、headers 等所有信息。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 任意 ID，会出现在回显的 path 中
+        - name: extra
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 额外的查询参数
+      responses:
+        "200":
+          description: 回显的请求信息

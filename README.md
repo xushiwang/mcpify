@@ -13,6 +13,9 @@ go install github.com/xushiwang/mcpify/cmd/mcpify@latest
 # Run: convert petstore.yaml to MCP tools
 mcpify --spec petstore.yaml
 
+# Try the included example (no API key needed, uses public httpbin.org)
+mcpify --spec examples/httpbin.yaml
+
 # With auth
 mcpify --spec api.yaml --auth "Bearer sk-xxx"
 
