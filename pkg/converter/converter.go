@@ -117,30 +117,21 @@ func ToMCPTool(op Operation) mcp.Tool {
 	}
 
 	for _, p := range op.Parameters {
+		desc := mcp.Description(p.Description)
+		var opt mcp.ToolOption
+
 		switch p.In {
 		case "path", "query", "header":
-			opt := mcp.WithString(p.Name,
-				mcp.Description(p.Description),
-			)
-			if p.Required {
-				opt = mcp.WithString(p.Name,
-					mcp.Required(),
-					mcp.Description(p.Description),
-				)
-			}
-			opts = append(opts, opt)
+			opt = typedParam(p.Name, p.Type, p.Required, desc)
 		case "body":
+			// Body is always sent as JSON string
 			if p.Required {
-				opts = append(opts, mcp.WithString(p.Name,
-					mcp.Required(),
-					mcp.Description(p.Description),
-				))
+				opt = mcp.WithString(p.Name, mcp.Required(), desc)
 			} else {
-				opts = append(opts, mcp.WithString(p.Name,
-					mcp.Description(p.Description),
-				))
+				opt = mcp.WithString(p.Name, desc)
 			}
 		}
+		opts = append(opts, opt)
 	}
 
 	return mcp.NewTool(op.ToolName, opts...)
@@ -152,6 +143,22 @@ func schemaType(s *openapi3.SchemaRef) string {
 		return "string"
 	}
 	return string((*s.Value.Type)[0])
+}
+
+// typedParam returns a ToolOption with the correct MCP type for the OpenAPI type.
+func typedParam(name, oapiType string, required bool, desc mcp.PropertyOption) mcp.ToolOption {
+	base := []mcp.PropertyOption{desc}
+	if required {
+		base = append([]mcp.PropertyOption{mcp.Required()}, base...)
+	}
+	switch oapiType {
+	case "integer", "number":
+		return mcp.WithNumber(name, base...)
+	case "boolean":
+		return mcp.WithBoolean(name, base...)
+	default:
+		return mcp.WithString(name, base...)
+	}
 }
 
 var nonAlpha = regexp.MustCompile(`[^a-zA-Z0-9]+`)
