@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/secssh/mcpify/pkg/openapi"
-	"github.com/secssh/mcpify/pkg/server"
+	"github.com/xushiwang/mcpify/pkg/openapi"
+	"github.com/xushiwang/mcpify/pkg/server"
 )
 
 func main() {

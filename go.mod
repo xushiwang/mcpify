@@ -1,4 +1,4 @@
-module github.com/secssh/mcpify
+module github.com/xushiwang/mcpify
 
 go 1.25.5
 

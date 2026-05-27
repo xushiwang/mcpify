@@ -12,8 +12,8 @@ import (
 
 	"github.com/mark3labs/mcp-go/mcp"
 	mcpserver "github.com/mark3labs/mcp-go/server"
-	"github.com/secssh/mcpify/pkg/converter"
-	"github.com/secssh/mcpify/pkg/openapi"
+	"github.com/xushiwang/mcpify/pkg/converter"
+	"github.com/xushiwang/mcpify/pkg/openapi"
 )
 
 // MCPifyServer wraps an MCP stdio server that exposes OpenAPI operations as tools.

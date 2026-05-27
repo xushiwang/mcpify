@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/secssh/mcpify/pkg/converter"
-	"github.com/secssh/mcpify/pkg/openapi"
+	"github.com/xushiwang/mcpify/pkg/converter"
+	"github.com/xushiwang/mcpify/pkg/openapi"
 )
 
 func TestConverter(t *testing.T) {

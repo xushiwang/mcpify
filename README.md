@@ -8,7 +8,7 @@ Feed it an OpenAPI 3.x spec, get an MCP stdio server that exposes every endpoint
 
 ```bash
 # Install
-go install github.com/secssh/mcpify/cmd/mcpify@latest
+go install github.com/xushiwang/mcpify/cmd/mcpify@latest
 
 # Run: convert petstore.yaml to MCP tools
 mcpify --spec petstore.yaml
@@ -56,8 +56,8 @@ openapi.yaml  →  [Loader]  →  [Converter]  →  [MCP Server (stdio)]
 
 ```go
 import (
-    "github.com/secssh/mcpify/pkg/openapi"
-    "github.com/secssh/mcpify/pkg/server"
+    "github.com/xushiwang/mcpify/pkg/openapi"
+    "github.com/xushiwang/mcpify/pkg/server"
 )
 
 func main() {
